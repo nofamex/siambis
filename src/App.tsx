@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Button from "./components/Button";
+import TemplateList from "./components/TemplateList";
+import { useState } from "react";
+import TaskAdder from "./components/TaskAdder";
 
 function App() {
+  const [inputState, setInputState] = useState("close");
+
+  const addTaskHandler = () => {
+    setInputState("open");
+  };
+
+  const closeInputHandler = () => {
+    setInputState("close");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col items-center justify-center bg-[#281c3f] w-[350px] h-[500px]">
+      <Header />
+      <div className="w-full h-4/6 px-4 py-6 flex flex-col">
+        {inputState === "close" ? (
+          <>
+            <Button handler={addTaskHandler} text={"TAMBAH"} />
+            <div className="w-full h-full p-4 space-y-2">
+              <TemplateList />
+              <TemplateList />
+              <TemplateList />
+            </div>
+          </>
+        ) : (
+          <TaskAdder closeHandler={closeInputHandler} />
+        )}
+      </div>
+      <Footer />
     </div>
   );
 }
